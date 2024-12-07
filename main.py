@@ -9,42 +9,40 @@ def r_g_f_file(filename):
     for line in lines[3:]:
         u, v, w = map(int, line.split())
         graph.append((u, v, w))
-
     return V, mabda, graph
-
 
 def b_f_w_c(graph, V, mabda):
     distance = [float("Inf")] * V
-    predecessor = [-1] * V
+    p = [-1] * V
     distance[mabda] = 0
 
     for _ in range(V - 1):
         for u, v, w in graph:
             if distance[u] != float("Inf") and distance[u] + w < distance[v]:
                 distance[v] = distance[u] + w
-                predecessor[v] = u
+                p[v] = u
 
-    has_negative_cycle = False
+    h_n = False
     for u, v, w in graph:
         if distance[u] != float("Inf") and distance[u] + w < distance[v]:
-            has_negative_cycle = True
+            h_n = True
             print(
                 f"N- ({u}, {v}) with weight {w}.")
 
             cycle = []
             current = v
             for _ in range(V):
-                current = predecessor[current]
+                current = p[current]
             start = current
             while True:
                 cycle.append(current)
-                current = predecessor[current]
+                current = p [current]
                 if current == start and len(cycle) > 1:
                     break
             cycle.append(start)
             print("Cycle:", " -> ".join(map(str, cycle[::-1])))
 
-    if has_negative_cycle:
+    if h_n:
         return None
 
     print("Sh :")
@@ -56,7 +54,7 @@ def b_f_w_c(graph, V, mabda):
             current = i
             while current != -1:
                 path.append(current)
-                current = predecessor[current]
+                current = p[current]
             print(
                 f"Node {i}: Distance = {distance[i]}, Path = {' -> '.join(map(str, path[::-1]))}")
     return distance
@@ -64,6 +62,4 @@ def b_f_w_c(graph, V, mabda):
 
 filename = "input.txt"
 V, mabda, graph = r_g_f_file(filename)
-
-
 result = b_f_w_c(graph, V, mabda)
