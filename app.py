@@ -26,11 +26,8 @@ def result():
             v = int(request.form[f"v{i}"])
             w = float(request.form[f"w{i}"])
             edges.append((u, v, w))
-
-        # اجرای الگوریتم بلمن-فورد
         distances, cycles = bellman_ford_with_cycles(edges, V)
 
-        # رسم گراف
         draw_graph(edges, V)
 
         return render_template(

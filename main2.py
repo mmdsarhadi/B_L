@@ -19,15 +19,12 @@ def bellman_ford(num_vertices, edges, source):
             if distances[u] + w < distances[v]:
                 distances[v] = distances[u] + w
                 predecessors[v] = u
-
-    # بررسی وجود مسیر یا دور منفی
     negative_cycles = []
     for u, v, w in edges:
         if distances[u] + w < distances[v]:
             cycle = []
             visited = set()
             current = v
-            # یافتن یک دور منفی
             while current not in visited:
                 visited.add(current)
                 current = predecessors[current]
@@ -54,13 +51,12 @@ def print_results(distances, negative_cycles):
             print(f"فاصله تا گره {node}: {distance}")
 
 if __name__ == "__main__":
-    # فایل گراف را بخوانید
+
     filename = "graph.txt"
     num_vertices, edges = read_graph_from_file(filename)
 
-    # اجرای الگوریتم بلمن-فورد از رأس مبدأ (0)
     source = 0
     distances, negative_cycles = bellman_ford(num_vertices, edges, source)
 
-    # چاپ نتایج
+
     print_results(distances, negative_cycles)
