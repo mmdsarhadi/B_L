@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+</head>
+<body>
+    <h1>Graph</h1>
+    <img src="{{ graph_image }}" alt="Graph">
+    <h2>Results</h2>
+    {% if distances %}
+    <h3>Shortest Paths</h3>
+    <table border="1">
+        <tr>
+            <th>Node</th>
+            <th>Distance</th>
+        </tr>
+        {% for i in range(vertices) %}
+        <tr>
+            <td>{{ i }}</td>
+            <td>{{ distances[i] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+    {% if cycles %}
+    <h3>Negative Cycles</h3>
+    <ul>
+        {% for cycle in cycles %}
+        <li>{{ cycle | join(' -> ') }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</body>
+</html>
